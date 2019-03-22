@@ -11,7 +11,7 @@ public class PlayerControls : MonoBehaviour
     public float BoostSpeed;
     public Rigidbody rigidbody;
     public float BoostCooldownTime;
-    private int Timeout = 0; //Timeout time in 1/50's of a second
+    private int BoostTimeOut = 0; //Timeout time in 1/50's of a second
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     // Fixed update is called 50 times a second
     void FixedUpdate()
     {
-        if (Timeout <= 0)
+        if (BoostTimeOut <= 0)
         {
             float zInput = Input.GetAxis(PlayerNumber + "_Vertical");
             float xInput = Input.GetAxis(PlayerNumber + "_Horizontal");
@@ -29,14 +29,15 @@ public class PlayerControls : MonoBehaviour
             if(Input.GetButton(PlayerNumber + "_Fire1"))
             {
                 // Boost
-                rigidbody.AddForce( (OtherPlayer.transform.position - gameObject.transform.position) * BoostSpeed);
-                Timeout = (int)BoostCooldownTime;
+                rigidbody.velocity = new Vector3(0, 0, 0);
+                rigidbody.AddForce( (OtherPlayer.transform.position - gameObject.transform.position).normalized * BoostSpeed);
+                BoostTimeOut = (int)BoostCooldownTime;
 
             }
         }
         else
         {
-            Timeout--;
+            BoostTimeOut--;
         }
     }
 
@@ -45,6 +46,19 @@ public class PlayerControls : MonoBehaviour
         if(col.gameObject.tag.Equals("Ground"))
         {
             Debug.Log("Yeet");
+        }
+        else if(col.gameObject.tag.Equals("Player"))
+        {
+            // colliding while boosting
+            if(BoostTimeOut > 0)
+            {
+                rigidbody.velocity = new Vector3(0, 0, 0);
+                // Decide whether to push other player if they are boosting
+                if(col.gameObject.GetComponent<PlayerControls>().BoostTimeOut <= 0)
+                {
+                    col.rigidbody.AddForce(-rigidbody.velocity.normalized * BoostSpeed);
+                }
+            }
         }
     }
 }
