@@ -10,10 +10,13 @@ public class PlayerControls : MonoBehaviour
         Boosting,
         Shoving,
         Jumping,
-        BeingShoved
+        BeingShoved,
+        Dead,
+        TimedOut
     }
     public string PlayerNumber;
     public GameObject OtherPlayer;
+    public GameManager gameManager;
 
     public float MovementSpeed;
     public float BoostSpeed;
@@ -36,6 +39,7 @@ public class PlayerControls : MonoBehaviour
     // Fixed update is called 50 times a second
     void FixedUpdate()
     {
+        Vector3 forceVector;
         if (CurrentAction == ActionType.None)
         {
             float zInput = Input.GetAxis(PlayerNumber + "_Vertical");
@@ -45,7 +49,9 @@ public class PlayerControls : MonoBehaviour
             {
                 // Boost
                 rigidbody.velocity = new Vector3(0, 0, 0);
-                rigidbody.AddForce((OtherPlayer.transform.position - gameObject.transform.position).normalized * BoostSpeed);
+                forceVector = (OtherPlayer.transform.position - gameObject.transform.position);
+                forceVector.Scale(new Vector3(1, 0, 1));
+                rigidbody.AddForce(forceVector.normalized * BoostSpeed);
                 ActionTimeout = (int)BoostCooldownTime;
                 CurrentAction = ActionType.Boosting;
             }
@@ -59,7 +65,9 @@ public class PlayerControls : MonoBehaviour
             if(Input.GetButton(PlayerNumber+"_Fire3"))
             {
                 // Shove
-                rigidbody.AddForce((OtherPlayer.transform.position - gameObject.transform.position).normalized * ShoveForce);
+                forceVector = (OtherPlayer.transform.position - gameObject.transform.position);
+                forceVector.Scale(new Vector3(1, 0, 1));
+                rigidbody.AddForce(forceVector.normalized * ShoveForce);
                 CurrentAction = ActionType.Shoving;
                 ActionTimeout = 10;
             }
@@ -67,14 +75,13 @@ public class PlayerControls : MonoBehaviour
         else
         {
             ActionTimeout--;
-            if(CurrentAction == ActionType.Boosting && ActionTimeout == 0)
+            if(ActionTimeout == 0 && CurrentAction != ActionType.None)
             {
+                if (CurrentAction == ActionType.Shoving)
+                {
+                    rigidbody.velocity = new Vector3(0, 0, 0);
+                }
                 CurrentAction = ActionType.None;
-            }
-            else if(CurrentAction == ActionType.Shoving && ActionTimeout == 0)
-            {
-                CurrentAction = ActionType.None;
-                rigidbody.velocity = new Vector3(0, 0, 0);
             }
         }
 
@@ -86,7 +93,8 @@ public class PlayerControls : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Ground"))
         {
-            Debug.Log("Yeet");
+            CurrentAction = ActionType.Dead;
+            gameManager.PlayerLost(PlayerNumber);
         }
         else if (col.gameObject.tag.Equals("Player"))
         {
@@ -97,16 +105,24 @@ public class PlayerControls : MonoBehaviour
                 if (!(col.gameObject.GetComponent<PlayerControls>().CurrentAction == ActionType.Boosting))
                 {
                     Debug.Log(PlayerNumber + " doin a boop");
-                    col.rigidbody.velocity = new Vector3(0, 0, 0);
-                    col.rigidbody.AddForce(rigidbody.velocity.normalized * BoostSpeed);
+                    col.gameObject.GetComponent<PlayerControls>().GetShoved(BoostCooldownTime, BoostSpeed, rigidbody.velocity.normalized);
+
                 }
                 rigidbody.velocity = new Vector3(0, 0, 0);
             }
         }
         else if(CurrentAction == ActionType.Jumping && col.gameObject.tag.Equals("Arena"))
         {
-            CurrentAction = ActionType.None;
+            CurrentAction = ActionType.TimedOut;
             ActionTimeout = (int)JumpCooldownTime;
         }
+    }
+
+    public void GetShoved(float ShoveTime, float ShoveForce, Vector3 ShoveVector)
+    {
+        rigidbody.velocity = new Vector3(0, 0, 0);
+        rigidbody.AddForce(ShoveVector * ShoveForce);
+        CurrentAction = ActionType.BeingShoved;
+        ActionTimeout = (int)ShoveTime;
     }
 }
