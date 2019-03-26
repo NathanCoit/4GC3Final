@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964128, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -402,6 +402,21 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1031766862}
+    - target: {fileID: 3966093163070474816, guid: 5d6917fe7daaed949850d5891cffd505,
+        type: 3}
+      propertyPath: JumpCooldownTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966093163070474816, guid: 5d6917fe7daaed949850d5891cffd505,
+        type: 3}
+      propertyPath: BoostCooldownTime
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966093163070474816, guid: 5d6917fe7daaed949850d5891cffd505,
+        type: 3}
+      propertyPath: GravityScale
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d6917fe7daaed949850d5891cffd505, type: 3}
 --- !u!1001 &6720552063431889894
@@ -550,6 +565,21 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1031766862}
+    - target: {fileID: 7549283668557111783, guid: 6b7ef07f50ed74e4f86487f3a5ea31b8,
+        type: 3}
+      propertyPath: BoostCooldownTime
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7549283668557111783, guid: 6b7ef07f50ed74e4f86487f3a5ea31b8,
+        type: 3}
+      propertyPath: JumpCooldownTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7549283668557111783, guid: 6b7ef07f50ed74e4f86487f3a5ea31b8,
+        type: 3}
+      propertyPath: GravityScale
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b7ef07f50ed74e4f86487f3a5ea31b8, type: 3}
 --- !u!1001 &9042167507655346980

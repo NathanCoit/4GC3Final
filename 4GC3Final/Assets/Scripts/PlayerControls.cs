@@ -55,21 +55,21 @@ public class PlayerControls : MonoBehaviour
                 ActionTimeout = (int)BoostCooldownTime;
                 CurrentAction = ActionType.Boosting;
             }
-            if (Input.GetButton(PlayerNumber + "_Fire2"))
+            else if (Input.GetButton(PlayerNumber + "_Fire2"))
             {
                 // Jump
                 rigidbody.velocity = new Vector3(0, 0, 0);
                 rigidbody.AddForce(new Vector3(0, JumpForce, 0));
                 CurrentAction = ActionType.Jumping;
             }
-            if(Input.GetButton(PlayerNumber+"_Fire3"))
+            else if(Input.GetButton(PlayerNumber+"_Fire3"))
             {
                 // Shove
                 forceVector = (OtherPlayer.transform.position - gameObject.transform.position);
                 forceVector.Scale(new Vector3(1, 0, 1));
                 rigidbody.AddForce(forceVector.normalized * ShoveForce);
                 CurrentAction = ActionType.Shoving;
-                ActionTimeout = 10;
+                ActionTimeout = 25;
             }
         }
         else
