@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Arena
   - SoundManager
+  - ReadyText
+  - BeginText
+  - MenuManager
   layers:
   - Default
   - TransparentFX

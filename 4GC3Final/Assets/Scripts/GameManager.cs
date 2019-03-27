@@ -13,12 +13,15 @@ public class GameManager : MonoBehaviour
     //Sound man has finally blessed your scripts. Praise him. Love him;
     private SoundManager SoundMan;
 
+    private MenuManager MenuMan;
+
     private bool Resetting = false;
     // Start is called before the first frame update
     void Start()
     {
-        //Setting up ya boi
+        //Setting up ya bois
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        MenuMan = GameObject.FindGameObjectWithTag("MenuManager").GetComponent<MenuManager>();
 
         //Do this for inital round start sounds and ui and stuff
         StartCoroutine(DelayedResetCoroutine(0.1f));
@@ -67,10 +70,12 @@ public class GameManager : MonoBehaviour
         Player1.transform.position = new Vector3(-4, 0.5f, 0);
         Player2.transform.position = new Vector3(4, 0.5f, 0);
 
-        //Announcer
+        //Announcer and text anim
         SoundMan.playReady();
+        MenuMan.ReadyAnimation();
         yield return new WaitForSeconds(1);
         SoundMan.playBegin();
+        MenuMan.BeginAnimation();
 
         //Give control after begin has been said
         Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.None;

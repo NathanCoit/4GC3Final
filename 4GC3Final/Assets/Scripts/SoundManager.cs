@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour
     //Announcer
     public AudioClip ready;
     public AudioClip begin;
+    public AudioClip select;
 
     //Two for that sick crossfade
     private AudioSource musicSource1;
@@ -51,6 +52,7 @@ public class SoundManager : MonoBehaviour
         else if(SceneManager.GetActiveScene().name == "CharacterSelect" && !musicSource2.isPlaying)
         {
             playCharacterSelectMusic();
+            playSelect();
         }
         else if (SceneManager.GetActiveScene().name == "CombatScene" && !musicSource1.isPlaying)
         {
@@ -73,7 +75,7 @@ public class SoundManager : MonoBehaviour
             StartCoroutine(FadeIn(2));
             musicSource2.Play();
         }
-        else if(musicSource2.isPlaying)
+        else
         {
             StartCoroutine(FadeOut(2));
             musicSource1.clip = characterSelectMusic;
@@ -91,7 +93,7 @@ public class SoundManager : MonoBehaviour
             StartCoroutine(FadeIn(2));
             musicSource2.Play();
         }
-        else if (musicSource2.isPlaying)
+        else
         {
             StartCoroutine(FadeOut(2));
             musicSource1.clip = combatMusic;
@@ -160,6 +162,15 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = ready;
+            announcerSource.Play();
+        }
+    }
+
+    public void playSelect()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = select;
             announcerSource.Play();
         }
     }

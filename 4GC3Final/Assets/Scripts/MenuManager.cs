@@ -7,6 +7,9 @@ public class MenuManager : MonoBehaviour
 {
     public SoundManager SoundMan;
 
+    private GameObject readyText;
+    private GameObject beginText;
+
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -25,6 +28,14 @@ public class MenuManager : MonoBehaviour
             StartCharacterSelect();
         else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
             StartGame();
+        else if (SceneManager.GetActiveScene().name == "CombatScene")
+        {
+            if (readyText == null)
+                readyText = GameObject.FindGameObjectWithTag("ReadyText");
+            if (beginText == null)
+                beginText = GameObject.FindGameObjectWithTag("BeginText");
+        }
+
 
     }
 
@@ -38,5 +49,15 @@ public class MenuManager : MonoBehaviour
     {
         Initiate.Fade("CombatScene", Color.white, 2.0f);
         SoundMan.playTitleScreenSelect();
+    }
+
+    public void ReadyAnimation()
+    {
+        readyText.GetComponent<Animator>().SetTrigger("ready");
+    }
+
+    public void BeginAnimation()
+    {
+        beginText.GetComponent<Animator>().SetTrigger("begin");
     }
 }
