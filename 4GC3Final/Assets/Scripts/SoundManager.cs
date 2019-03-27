@@ -5,18 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+    //Music
     public AudioClip titleMusic;
     public AudioClip menuMusic;
     public AudioClip characterSelectMusic;
     public AudioClip combatMusic;
 
+    //UI
     public AudioClip titleScreenSelect;
+
+    //Announcer
+    public AudioClip ready;
+    public AudioClip begin;
 
     //Two for that sick crossfade
     private AudioSource musicSource1;
     private AudioSource musicSource2;
 
     private AudioSource uiEffectsSource;
+    private AudioSource announcerSource;
 
     private float fadeRate = 3.5f;
 
@@ -31,6 +38,7 @@ public class SoundManager : MonoBehaviour
         musicSource2 = GetComponents<AudioSource>()[1];
 
         uiEffectsSource = GetComponents<AudioSource>()[2];
+        announcerSource = GetComponents<AudioSource>()[3];
 
     }
 
@@ -135,6 +143,24 @@ public class SoundManager : MonoBehaviour
         {
             uiEffectsSource.clip = titleScreenSelect;
             uiEffectsSource.Play();
+        }
+    }
+
+    public void playBegin()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = begin;
+            announcerSource.Play();
+        }
+    }
+
+    public void playReady()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = ready;
+            announcerSource.Play();
         }
     }
 }
