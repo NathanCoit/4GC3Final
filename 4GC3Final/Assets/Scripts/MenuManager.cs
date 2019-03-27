@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuControls : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
+    public SoundManager SoundMan;
+
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -20,11 +22,21 @@ public class MainMenuControls : MonoBehaviour
     void Update()
     {
         if (Input.anyKey && SceneManager.GetActiveScene().name == "TitleScreen")
+            StartCharacterSelect();
+        else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
             StartGame();
+
+    }
+
+    public void StartCharacterSelect()
+    {
+        Initiate.Fade("CharacterSelect", Color.white, 2.0f);
+        SoundMan.playTitleScreenSelect();
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("CombatScene");
+        Initiate.Fade("CombatScene", Color.white, 2.0f);
+        SoundMan.playTitleScreenSelect();
     }
 }
