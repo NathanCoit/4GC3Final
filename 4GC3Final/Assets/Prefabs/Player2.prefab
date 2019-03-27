@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: P2
   OtherPlayer: {fileID: 0}
+  gameManager: {fileID: 0}
   MovementSpeed: 10
   BoostSpeed: 1250
   JumpForce: 1000
@@ -115,6 +116,8 @@ MonoBehaviour:
   rigidbody: {fileID: 7549283668557111780}
   BoostCooldownTime: 0.5
   JumpCooldownTime: 0.1
+  lethalDistance: 3
+  CurrentAction: 0
 --- !u!54 &7549283668557111780
 Rigidbody:
   m_ObjectHideFlags: 0
