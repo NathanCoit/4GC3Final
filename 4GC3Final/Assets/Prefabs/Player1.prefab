@@ -116,7 +116,7 @@ MonoBehaviour:
   rigidbody: {fileID: 3966093163070474817}
   BoostCooldownTime: 0.5
   JumpCooldownTime: 0.1
-  lethalDistance: 3
+  lethalDistance: 4
   CurrentAction: 0
 --- !u!54 &3966093163070474817
 Rigidbody:

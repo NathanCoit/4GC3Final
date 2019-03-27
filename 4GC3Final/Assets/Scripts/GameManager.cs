@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
         Player1.transform.position = new Vector3(-4, 0.5f, 0);
         Player2.transform.position = new Vector3(4, 0.5f, 0);
 
+        Camera.main.GetComponent<CombatCam>().resetCamera();
+
         //Announcer and text anim
         SoundMan.playReady();
         MenuMan.ReadyAnimation();

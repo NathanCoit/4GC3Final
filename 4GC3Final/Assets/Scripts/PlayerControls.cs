@@ -132,10 +132,11 @@ public class PlayerControls : MonoBehaviour
         CurrentAction = ActionType.BeingShoved;
         ActionTimeout = (int)ShoveTime;
 
-        //Checking if hit is lethal (by seeing if they're withing 2 units of edge)
+        //Checking if hit is lethal (by seeing if they're withing 2 units of edge) yes this is ugly, deal with it
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Arena").transform.position) > GameObject.FindGameObjectWithTag("Arena").transform.localScale.x / 2 - lethalDistance)
         {
             SoundMan.playBwah();
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, gameObject.transform.position.z));
         }
     }
 }
