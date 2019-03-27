@@ -19,19 +19,23 @@ public class SoundManager : MonoBehaviour
     public AudioClip begin;
     public AudioClip select;
 
+    //Effects
+    public AudioClip bwah;
+
     //Two for that sick crossfade
     private AudioSource musicSource1;
     private AudioSource musicSource2;
 
     private AudioSource uiEffectsSource;
     private AudioSource announcerSource;
+    private AudioSource effectsSource;
 
     private float fadeRate = 3.5f;
 
     void Awake()
-	{
-		DontDestroyOnLoad (this.gameObject);
-	}
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     void Start()
     {
@@ -40,16 +44,17 @@ public class SoundManager : MonoBehaviour
 
         uiEffectsSource = GetComponents<AudioSource>()[2];
         announcerSource = GetComponents<AudioSource>()[3];
+        effectsSource = GetComponents<AudioSource>()[4];
 
     }
 
     void Update()
     {
-        if(SceneManager.GetActiveScene().name == "TitleScreen" && !musicSource1.isPlaying)
+        if (SceneManager.GetActiveScene().name == "TitleScreen" && !musicSource1.isPlaying)
         {
             playTitleMusic();
         }
-        else if(SceneManager.GetActiveScene().name == "CharacterSelect" && !musicSource2.isPlaying)
+        else if (SceneManager.GetActiveScene().name == "CharacterSelect" && !musicSource2.isPlaying)
         {
             playCharacterSelectMusic();
             playSelect();
@@ -112,7 +117,7 @@ public class SoundManager : MonoBehaviour
 
         while (audioSource.volume > 0.1f)
         {
-            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 0.0f, fadeRate* Time.deltaTime );
+            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 0.0f, fadeRate * Time.deltaTime);
             yield return null;
         }
 
@@ -129,9 +134,9 @@ public class SoundManager : MonoBehaviour
         else
             audioSource = musicSource2;
 
-        while (audioSource.volume< 0.9f)
+        while (audioSource.volume < 0.9f)
         {
-            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 1.0f, fadeRate* Time.deltaTime);
+            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 1.0f, fadeRate * Time.deltaTime);
             yield return null;
         }
 
@@ -174,4 +179,14 @@ public class SoundManager : MonoBehaviour
             announcerSource.Play();
         }
     }
+
+    public void playBwah()
+    {
+        if (!effectsSource.isPlaying)
+        {
+            effectsSource.clip = bwah;
+            effectsSource.Play();
+        }
+    }
+
 }

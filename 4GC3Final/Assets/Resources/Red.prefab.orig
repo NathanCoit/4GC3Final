@@ -114,9 +114,14 @@ MonoBehaviour:
   ShoveForce: 1000
   GravityScale: 8
   rigidbody: {fileID: 7549283668557111780}
+<<<<<<< HEAD:4GC3Final/Assets/Resources/Red.prefab
   BoostCooldownTime: 0.6
   JumpCooldownTime: 0.3
+=======
+  BoostCooldownTime: 0.5
+  JumpCooldownTime: 0.1
   lethalDistance: 4
+>>>>>>> master:4GC3Final/Assets/Prefabs/Player2.prefab
   CurrentAction: 0
 --- !u!54 &7549283668557111780
 Rigidbody:

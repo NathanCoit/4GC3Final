@@ -27,13 +27,20 @@ public class PlayerControls : MonoBehaviour
     public float BoostCooldownTime;
     public float JumpCooldownTime;
 
+    //Used to specifiy how far away a shove will be lethal (for effects)
+    public float lethalDistance;
+
     private int ActionTimeout = 0; //Timeout time in 1/50's of a second
     public ActionType CurrentAction = ActionType.None;
-    // Start is called before the first frame update
+
+    private SoundManager SoundMan;
+
     void Start()
     {
         BoostCooldownTime = BoostCooldownTime * 50;
         JumpCooldownTime = JumpCooldownTime * 50;
+
+        SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     // Fixed update is called 50 times a second
@@ -127,5 +134,12 @@ public class PlayerControls : MonoBehaviour
         rigidbody.AddForce(ShoveVector * ShoveForce);
         CurrentAction = ActionType.BeingShoved;
         ActionTimeout = (int)ShoveTime;
+
+        //Checking if hit is lethal (by seeing if they're withing 2 units of edge) yes this is ugly, deal with it
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Arena").transform.position) > GameObject.FindGameObjectWithTag("Arena").transform.localScale.x / 2 - lethalDistance)
+        {
+            SoundMan.playBwah();
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, gameObject.transform.position.z));
+        }
     }
 }
