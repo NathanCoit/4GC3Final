@@ -586,6 +586,8 @@ MonoBehaviour:
     type: 3}
   combatMusic: {fileID: 8300000, guid: 3729ce92718fbbf48be1065fc9398b62, type: 3}
   titleScreenSelect: {fileID: 8300000, guid: 71f02f7c752a0bf46abc847fab59e4fa, type: 3}
+  ready: {fileID: 8300000, guid: c3fc808f48e8a3f43b34affccd460d08, type: 3}
+  begin: {fileID: 8300000, guid: 8e41d1baae7d93f4bb2f4607e0197d17, type: 3}
 --- !u!4 &1597314747
 Transform:
   m_ObjectHideFlags: 0
