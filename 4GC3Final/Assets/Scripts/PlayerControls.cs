@@ -66,6 +66,7 @@ public class PlayerControls : MonoBehaviour
             {
                 // Jump
                 rigidbody.velocity = new Vector3(0, 0, 0);
+                rigidbody.angularVelocity = new Vector3(0, 0, 0);
                 rigidbody.AddForce(new Vector3(0, JumpForce, 0));
                 CurrentAction = ActionType.Jumping;
             }
@@ -82,11 +83,12 @@ public class PlayerControls : MonoBehaviour
         else
         {
             ActionTimeout--;
-            if(ActionTimeout == 0 && CurrentAction != ActionType.None)
+            if(ActionTimeout == 0 && CurrentAction != ActionType.None && CurrentAction != ActionType.Dead)
             {
                 if (CurrentAction == ActionType.Shoving)
                 {
                     rigidbody.velocity = new Vector3(0, 0, 0);
+                    rigidbody.angularVelocity = new Vector3(0, 0, 0);
                 }
                 CurrentAction = ActionType.None;
             }
@@ -128,6 +130,7 @@ public class PlayerControls : MonoBehaviour
     public void GetShoved(float ShoveTime, float ShoveForce, Vector3 ShoveVector)
     {
         rigidbody.velocity = new Vector3(0, 0, 0);
+        rigidbody.angularVelocity = new Vector3(0, 0, 0);
         rigidbody.AddForce(ShoveVector * ShoveForce);
         CurrentAction = ActionType.BeingShoved;
         ActionTimeout = (int)ShoveTime;
