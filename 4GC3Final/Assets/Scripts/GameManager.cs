@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
         SoundMan.playBegin();
         MenuMan.BeginAnimation();
 
+        yield return new WaitForSeconds(0.5f);
+
         //Give control after begin has been said
         Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.None;
         Player2.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.None;
