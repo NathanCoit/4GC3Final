@@ -30,6 +30,10 @@ public class CombatCam : MonoBehaviour
     public float sensitivity = 5.0f;
     public bool CameraMovementEnabled = true;
 
+    private bool follow;
+
+    private GameObject targetObject;
+
     public float fov;
 
     // i tried putting this here and the boundaries in start - didn't work :(
@@ -42,6 +46,7 @@ public class CombatCam : MonoBehaviour
         fov = Camera.main.fieldOfView;
         theScreenWidth = Screen.width;
         theScreenHeight = Screen.height;
+        follow = false;
     }
 
     void Update()
@@ -57,12 +62,22 @@ public class CombatCam : MonoBehaviour
             else
                 cameraMoving = false;
         }
+        if(follow)
+        {
+            transform.LookAt(targetObject.transform);
+
+            //Should rotate around target but does not =(
+            transform.Translate(Vector3.right * Time.deltaTime);
+        }
     }
 
 
     public void resetCamera()
     {
+        follow = false;
         lookAt(new Vector3(0, 8, -11));
+        transform.LookAt(GameObject.FindGameObjectWithTag("Arena").transform);
+        transform.eulerAngles = new Vector3(30, 0, 0);
     }
 
     //Function for setting camera target to unit when its selected
@@ -72,6 +87,12 @@ public class CombatCam : MonoBehaviour
         float adjacent = 5;
         cameraTarget = new Vector3(target.x, target.y, target.z - adjacent);
         cameraMoving = true;
+    }
+
+    public void setTarget(GameObject target)
+    {
+        follow = true;
+        targetObject = target;
     }
 
 }

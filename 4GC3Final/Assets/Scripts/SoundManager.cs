@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
 
     //UI
     public AudioClip titleScreenSelect;
+    public AudioClip charSelect;
+    public AudioClip hover;
 
     //Announcer
     public AudioClip ready;
@@ -26,7 +28,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource musicSource1;
     private AudioSource musicSource2;
 
-    private AudioSource uiEffectsSource;
+    private List<AudioSource> uiEffectSources;
     private AudioSource announcerSource;
     private AudioSource effectsSource;
 
@@ -42,9 +44,12 @@ public class SoundManager : MonoBehaviour
         musicSource1 = GetComponents<AudioSource>()[0];
         musicSource2 = GetComponents<AudioSource>()[1];
 
-        uiEffectsSource = GetComponents<AudioSource>()[2];
-        announcerSource = GetComponents<AudioSource>()[3];
-        effectsSource = GetComponents<AudioSource>()[4];
+        uiEffectSources = new List<AudioSource>();
+        uiEffectSources.Add(GetComponents<AudioSource>()[2]);
+        uiEffectSources.Add(GetComponents<AudioSource>()[3]);
+        uiEffectSources.Add(GetComponents<AudioSource>()[4]);
+        announcerSource = GetComponents<AudioSource>()[5];
+        effectsSource = GetComponents<AudioSource>()[6];
 
     }
 
@@ -146,10 +151,40 @@ public class SoundManager : MonoBehaviour
 
     public void playTitleScreenSelect()
     {
-        if (!uiEffectsSource.isPlaying)
+        foreach(AudioSource a in uiEffectSources)
         {
-            uiEffectsSource.clip = titleScreenSelect;
-            uiEffectsSource.Play();
+            if(!a.isPlaying)
+            {
+                a.clip = titleScreenSelect;
+                a.Play();
+                break;
+            }
+        }
+    }
+
+    public void playCharSelect()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = charSelect;
+                a.Play();
+                break;
+            }
+        }
+    }
+
+    public void playHover()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = hover;
+                a.Play();
+                break;
+            }
         }
     }
 

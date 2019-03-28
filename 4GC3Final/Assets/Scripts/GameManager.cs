@@ -25,19 +25,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        MenuMan = GameObject.FindGameObjectWithTag("MenuManager").GetComponent<MenuManager>();
+        SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+
         // Get chosen character names from magical place.
-        string Player1Character = "Red";
-        string Player2Character = "Harry";
+        string Player1Character = MenuMan.player1Character;
+        string Player2Character = MenuMan.player2Character;
         CreatePlayers(Player1Character, Player2Character);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Setting up ya bois
-        SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
-        MenuMan = GameObject.FindGameObjectWithTag("MenuManager").GetComponent<MenuManager>();
-
         //Do this for inital round start sounds and ui and stuff
         StartCoroutine(DelayedResetCoroutine(0.1f));
         Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;

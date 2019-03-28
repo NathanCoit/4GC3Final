@@ -10,6 +10,10 @@ TagManager:
   - ReadyText
   - BeginText
   - MenuManager
+  - p1Cursor
+  - p2Cursor
+  - Harri
+  - Red
   layers:
   - Default
   - TransparentFX

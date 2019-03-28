@@ -137,6 +137,7 @@ public class PlayerControls : MonoBehaviour
         {
             SoundMan.playBwah();
             Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, gameObject.transform.position.z));
+            Camera.main.GetComponent<CombatCam>().setTarget(this.gameObject);
         }
     }
 

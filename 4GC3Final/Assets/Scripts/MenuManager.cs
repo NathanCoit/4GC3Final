@@ -10,6 +10,9 @@ public class MenuManager : MonoBehaviour
     private GameObject readyText;
     private GameObject beginText;
 
+    public string player1Character;
+    public string player2Character;
+
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -18,7 +21,8 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+
     }
 
     // Update is called once per frame
@@ -27,7 +31,8 @@ public class MenuManager : MonoBehaviour
         if (Input.anyKey && SceneManager.GetActiveScene().name == "TitleScreen")
             StartCharacterSelect();
         else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
-            StartGame();
+            if(player1Character != "" && player2Character != "")
+                StartGame();
         else if (SceneManager.GetActiveScene().name == "CombatScene")
         {
             if (readyText == null)
@@ -53,11 +58,13 @@ public class MenuManager : MonoBehaviour
 
     public void ReadyAnimation()
     {
+        readyText = GameObject.FindGameObjectWithTag("ReadyText");
         readyText.GetComponent<Animator>().SetTrigger("ready");
     }
 
     public void BeginAnimation()
     {
+        beginText = GameObject.FindGameObjectWithTag("BeginText");
         beginText.GetComponent<Animator>().SetTrigger("begin");
     }
 }

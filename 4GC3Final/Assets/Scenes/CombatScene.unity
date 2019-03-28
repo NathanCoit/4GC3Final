@@ -455,7 +455,7 @@ MonoBehaviour:
   leftHeld: 0
   downHeld: 0
   upHeld: 0
-  targetTolerance: 0
+  targetTolerance: 0.001
   cameraMoving: 0
   sensitivity: 5
   CameraMovementEnabled: 1
