@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     private bool Resetting = false;
 
+    //How close to the edge a dash will kill
+    public float lethalDistance;
+
     /// <summary>
     /// Awake called before start. Create players and link scripts
     /// </summary>

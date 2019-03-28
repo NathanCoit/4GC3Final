@@ -27,9 +27,6 @@ public class PlayerControls : MonoBehaviour
     public float BoostCooldownTime;
     public float JumpCooldownTime;
 
-    //Used to specifiy how far away a shove will be lethal (for effects)
-    public float lethalDistance;
-
     private int ActionTimeout = 0; //Timeout time in 1/50's of a second
     public ActionType CurrentAction = ActionType.None;
 
@@ -136,10 +133,47 @@ public class PlayerControls : MonoBehaviour
         ActionTimeout = (int)ShoveTime;
 
         //Checking if hit is lethal (by seeing if they're withing 2 units of edge) yes this is ugly, deal with it
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Arena").transform.position) > GameObject.FindGameObjectWithTag("Arena").transform.localScale.x / 2 - lethalDistance)
+        if (lethalCheck())
         {
             SoundMan.playBwah();
             Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, gameObject.transform.position.z));
         }
+    }
+
+    //Function for figuring out if a dash will end the round
+    private bool lethalCheck()
+    {
+        //Get the arena
+        GameObject Arena = GameObject.FindGameObjectWithTag("Arena");
+
+        //Trig to find how far we are from falling on the vector we've been pushed on. This took forever.
+        float theta = 0.0f;
+        float angleBetweenArenaAndHit = Mathf.Atan2(Arena.transform.position.z - transform.position.z, Arena.transform.position.x - transform.position.x);
+
+        //Accounting for quadrant
+        if(transform.position.x < 0)
+            theta = Mathf.PI - Mathf.Abs(angleBetweenArenaAndHit);
+        else
+            theta = Mathf.Abs(angleBetweenArenaAndHit);
+
+        //Two known sides
+        float side1 = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), Arena.transform.position);
+        float side2 = Arena.transform.localScale.x / 2;
+
+        //Sin law to find first missing angle
+        float gamma = Mathf.Asin((side1 * Mathf.Sin(theta)) / side2);
+
+        //Sum of angles to find other missing angle
+        float phi = Mathf.PI - theta - gamma;
+
+        //Cosine law to find our distance
+        float distanceToEdge = 1.0f * Mathf.Sqrt(Mathf.Pow(side1, 2) + Mathf.Pow(side2, 2) - (2 * side1 * side2 * Mathf.Cos(phi)));
+
+        Debug.Log(distanceToEdge);
+
+        if (distanceToEdge <= gameManager.lethalDistance)
+            return true;
+
+        return false;
     }
 }
