@@ -151,10 +151,20 @@ public class PlayerControls : MonoBehaviour
         float angleBetweenArenaAndHit = Mathf.Atan2(Arena.transform.position.z - transform.position.z, Arena.transform.position.x - transform.position.x);
 
         //Accounting for quadrant
-        if(transform.position.x < 0)
-            theta = Mathf.PI - Mathf.Abs(angleBetweenArenaAndHit);
+        if (transform.position.x < 0)
+        {
+            if(OtherPlayer.transform.position.x > transform.position.x)
+                theta = Mathf.PI - Mathf.Abs(angleBetweenArenaAndHit);
+            else
+                theta = Mathf.Abs(angleBetweenArenaAndHit);
+        }
         else
-            theta = Mathf.Abs(angleBetweenArenaAndHit);
+        {
+            if (OtherPlayer.transform.position.x < transform.position.x)
+                theta = Mathf.Abs(angleBetweenArenaAndHit);
+            else
+                theta = Mathf.PI - Mathf.Abs(angleBetweenArenaAndHit);
+        }
 
         //Two known sides
         float side1 = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), Arena.transform.position);
