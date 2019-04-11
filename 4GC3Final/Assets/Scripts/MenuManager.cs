@@ -85,12 +85,25 @@ public class MenuManager : MonoBehaviour
 
     public void updateRoundsText()
     {
-        
+        //I dont like variables
         GameObject.FindGameObjectWithTag("numRounds").GetComponent<Text>().text = numRounds.ToString();
         if (SceneManager.GetActiveScene().name == "CombatScene")
         {
             GameObject.FindGameObjectWithTag("player1WinCount").GetComponent<Text>().text = GameMan.getPlayer1Score().ToString();
+            if (GameMan.getPlayer1Score() == numRounds - 1)
+                GameObject.FindGameObjectWithTag("player1WinCount").GetComponent<Text>().color = Color.yellow;
+            else if (GameMan.getPlayer1Score() == numRounds)
+                GameObject.FindGameObjectWithTag("player1WinCount").GetComponent<Text>().color = Color.green;
+            else
+                GameObject.FindGameObjectWithTag("player1WinCount").GetComponent<Text>().color = Color.white;
+
             GameObject.FindGameObjectWithTag("player2WinCount").GetComponent<Text>().text = GameMan.getPlayer2Score().ToString();
+            if (GameMan.getPlayer2Score() == numRounds - 1)
+                GameObject.FindGameObjectWithTag("player2WinCount").GetComponent<Text>().color = Color.yellow;
+            else if (GameMan.getPlayer2Score() == numRounds)
+                GameObject.FindGameObjectWithTag("player2WinCount").GetComponent<Text>().color = Color.green;
+            else
+                GameObject.FindGameObjectWithTag("player2WinCount").GetComponent<Text>().color = Color.white;
         }
 
     }
