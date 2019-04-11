@@ -68,16 +68,27 @@ public class GameManager : MonoBehaviour
 
     public void DelayedGameReset()
     {
+        
         StartCoroutine(DelayedResetCoroutine(3));
     }
 
     private IEnumerator DelayedResetCoroutine(float seconds)
     {
+        //Wait a frame cause unity
+        yield return null;
+
+        MenuMan.updateRoundsText();
+
+        //Isnt first round
+        if(!(Player1Score == 0 && Player2Score == 0))
+            MenuMan.scoreBoardAnimation();
+
         //STOP
         Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
         Player2.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
 
         yield return new WaitForSeconds(seconds);
+
         Player1.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player1.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
@@ -136,5 +147,15 @@ public class GameManager : MonoBehaviour
 
         Player1.transform.position = new Vector3(-4, 0.5f, 0);
         Player2.transform.position = new Vector3(4, 0.5f, 0);
+    }
+
+    public int getPlayer1Score()
+    {
+        return Player1Score;
+    }
+
+    public int getPlayer2Score()
+    {
+        return Player2Score;
     }
 }

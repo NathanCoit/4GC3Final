@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public SoundManager SoundMan;
+    private SoundManager SoundMan;
+    private GameManager GameMan;
 
     private GameObject readyText;
     private GameObject beginText;
@@ -14,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public int numRounds;
 
     private bool shownRoundSelect;
+    private bool combatStartup;
 
     public string player1Character;
     public string player2Character;
@@ -28,6 +30,7 @@ public class MenuManager : MonoBehaviour
     {
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         numRounds = 10;
+        combatStartup = true;
         shownRoundSelect = false;
     }
 
@@ -37,18 +40,29 @@ public class MenuManager : MonoBehaviour
         if (Input.anyKey && SceneManager.GetActiveScene().name == "TitleScreen")
             StartCharacterSelect();
         else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
+        {
             if (player1Character != "" && player2Character != "" && !shownRoundSelect)
             {
                 ShowRoundSelect();
                 shownRoundSelect = true;
             }
-            else if (SceneManager.GetActiveScene().name == "CombatScene")
+        }
+        else if (SceneManager.GetActiveScene().name == "CombatScene")
+        {
+            if (combatStartup)
             {
                 if (readyText == null)
                     readyText = GameObject.FindGameObjectWithTag("ReadyText");
                 if (beginText == null)
                     beginText = GameObject.FindGameObjectWithTag("BeginText");
+                if (GameMan == null)
+                    GameMan = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+                updateRoundsText();
+                combatStartup = false;
             }
+
+        }
 
 
     }
@@ -71,7 +85,14 @@ public class MenuManager : MonoBehaviour
 
     public void updateRoundsText()
     {
+        
         GameObject.FindGameObjectWithTag("numRounds").GetComponent<Text>().text = numRounds.ToString();
+        if (SceneManager.GetActiveScene().name == "CombatScene")
+        {
+            GameObject.FindGameObjectWithTag("player1WinCount").GetComponent<Text>().text = GameMan.getPlayer1Score().ToString();
+            GameObject.FindGameObjectWithTag("player2WinCount").GetComponent<Text>().text = GameMan.getPlayer2Score().ToString();
+        }
+
     }
 
     public void StartGame()
@@ -95,5 +116,10 @@ public class MenuManager : MonoBehaviour
     public void RoundSelectAnimation()
     {
         GameObject.FindGameObjectWithTag("roundSelectCanvas").GetComponent<Animator>().SetTrigger("roundSelect");
+    }
+
+    public void scoreBoardAnimation()
+    {
+        GameObject.FindGameObjectWithTag("scoreBoard").GetComponent<Animator>().SetTrigger("scoreBoard");
     }
 }

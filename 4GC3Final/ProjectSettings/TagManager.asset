@@ -20,6 +20,10 @@ TagManager:
   - roundsDown
   - roundsUp
   - beginButton
+  - player1WinCount
+  - player2WinCount
+  - GameManager
+  - scoreBoard
   layers:
   - Default
   - TransparentFX
