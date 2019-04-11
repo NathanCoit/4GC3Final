@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip titleScreenSelect;
     public AudioClip charSelect;
     public AudioClip hover;
+    public AudioClip click;
 
     //Announcer
     public AudioClip ready;
@@ -151,9 +152,9 @@ public class SoundManager : MonoBehaviour
 
     public void playTitleScreenSelect()
     {
-        foreach(AudioSource a in uiEffectSources)
+        foreach (AudioSource a in uiEffectSources)
         {
-            if(!a.isPlaying)
+            if (!a.isPlaying)
             {
                 a.clip = titleScreenSelect;
                 a.Play();
@@ -182,6 +183,19 @@ public class SoundManager : MonoBehaviour
             if (!a.isPlaying)
             {
                 a.clip = hover;
+                a.Play();
+                break;
+            }
+        }
+    }
+
+    public void playClick()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = click;
                 a.Play();
                 break;
             }

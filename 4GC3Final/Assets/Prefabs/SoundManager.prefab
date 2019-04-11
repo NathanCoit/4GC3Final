@@ -58,6 +58,7 @@ MonoBehaviour:
   titleScreenSelect: {fileID: 8300000, guid: 71f02f7c752a0bf46abc847fab59e4fa, type: 3}
   charSelect: {fileID: 8300000, guid: 821392a1b2cbcf640b312e7ced35ee83, type: 3}
   hover: {fileID: 8300000, guid: ae47f2bc1831dc4469441f22a43d8ac6, type: 3}
+  click: {fileID: 8300000, guid: 589ae1e2627ca57478e6f02e9d2ce1be, type: 3}
   ready: {fileID: 8300000, guid: c3fc808f48e8a3f43b34affccd460d08, type: 3}
   begin: {fileID: 8300000, guid: 8e41d1baae7d93f4bb2f4607e0197d17, type: 3}
   select: {fileID: 8300000, guid: 916ea42e63f10294da1df41bad606b39, type: 3}

@@ -602,7 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1: {fileID: 0}
   Player2: {fileID: 0}
-  lethalDistance: 6
+  lethalDistance: 5.5
 --- !u!4 &1031766863
 Transform:
   m_ObjectHideFlags: 0
