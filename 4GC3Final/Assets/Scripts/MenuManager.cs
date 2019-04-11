@@ -13,6 +13,8 @@ public class MenuManager : MonoBehaviour
 
     public int numRounds;
 
+    private bool shownRoundSelect;
+
     public string player1Character;
     public string player2Character;
 
@@ -26,6 +28,7 @@ public class MenuManager : MonoBehaviour
     {
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         numRounds = 10;
+        shownRoundSelect = false;
     }
 
     // Update is called once per frame
@@ -34,15 +37,18 @@ public class MenuManager : MonoBehaviour
         if (Input.anyKey && SceneManager.GetActiveScene().name == "TitleScreen")
             StartCharacterSelect();
         else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
-            if(player1Character != "" && player2Character != "")
+            if (player1Character != "" && player2Character != "" && !shownRoundSelect)
+            {
                 ShowRoundSelect();
-        else if (SceneManager.GetActiveScene().name == "CombatScene")
-        {
-            if (readyText == null)
-                readyText = GameObject.FindGameObjectWithTag("ReadyText");
-            if (beginText == null)
-                beginText = GameObject.FindGameObjectWithTag("BeginText");
-        }
+                shownRoundSelect = true;
+            }
+            else if (SceneManager.GetActiveScene().name == "CombatScene")
+            {
+                if (readyText == null)
+                    readyText = GameObject.FindGameObjectWithTag("ReadyText");
+                if (beginText == null)
+                    beginText = GameObject.FindGameObjectWithTag("BeginText");
+            }
 
 
     }
@@ -57,7 +63,8 @@ public class MenuManager : MonoBehaviour
     {
         //This is a stupid way around the fact unity can find inactive gae objects. Stupid.
         GameObject.FindGameObjectWithTag("parentCanvas").transform.GetChild(1).gameObject.SetActive(true);
-
+        RoundSelectAnimation();
+        SoundMan.playWhoosh();
         updateRoundsText();
             
     }
@@ -83,5 +90,10 @@ public class MenuManager : MonoBehaviour
     {
         beginText = GameObject.FindGameObjectWithTag("BeginText");
         beginText.GetComponent<Animator>().SetTrigger("begin");
+    }
+
+    public void RoundSelectAnimation()
+    {
+        GameObject.FindGameObjectWithTag("roundSelectCanvas").GetComponent<Animator>().SetTrigger("roundSelect");
     }
 }

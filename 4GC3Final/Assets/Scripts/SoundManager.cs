@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip charSelect;
     public AudioClip hover;
     public AudioClip click;
+    public AudioClip whoosh;
 
     //Announcer
     public AudioClip ready;
@@ -196,6 +197,19 @@ public class SoundManager : MonoBehaviour
             if (!a.isPlaying)
             {
                 a.clip = click;
+                a.Play();
+                break;
+            }
+        }
+    }
+
+    public void playWhoosh()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = whoosh;
                 a.Play();
                 break;
             }
