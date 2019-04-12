@@ -135,4 +135,14 @@ public class MenuManager : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("scoreBoard").GetComponent<Animator>().SetTrigger("scoreBoard");
     }
+
+    public void matchPointAnimation()
+    {
+        GameObject.FindGameObjectWithTag("matchPointText").GetComponent<Animator>().SetTrigger("matchPoint");
+    }
+
+    public void gamePointAnimation()
+    {
+        GameObject.FindGameObjectWithTag("gamePointText").GetComponent<Animator>().SetTrigger("gamePoint");
+    }
 }

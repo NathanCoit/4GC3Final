@@ -23,6 +23,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip begin;
     public AudioClip select;
     public AudioClip versus;
+    public AudioClip gamePoint;
+    public AudioClip matchPoint;
     public AudioClip Elijah;
     public AudioClip Harri;
     public AudioClip Nathan;
@@ -293,6 +295,24 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = select;
+            announcerSource.Play();
+        }
+    }
+
+    public void playMatchPoint()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = matchPoint;
+            announcerSource.Play();
+        }
+    }
+
+    public void playGamePoint()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = gamePoint;
             announcerSource.Play();
         }
     }

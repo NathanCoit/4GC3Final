@@ -64,6 +64,8 @@ MonoBehaviour:
   begin: {fileID: 8300000, guid: 8e41d1baae7d93f4bb2f4607e0197d17, type: 3}
   select: {fileID: 8300000, guid: 916ea42e63f10294da1df41bad606b39, type: 3}
   versus: {fileID: 8300000, guid: 55201b6a89488a84aa94db82d625ff7e, type: 3}
+  gamePoint: {fileID: 8300000, guid: 28a171c8527b14d4fa5c6f0e7380abfd, type: 3}
+  matchPoint: {fileID: 8300000, guid: a5cd01a2ad6842741a72406a3e6fa9ef, type: 3}
   Elijah: {fileID: 8300000, guid: dc8d13f995718f24480ccf518f0d332a, type: 3}
   Harri: {fileID: 8300000, guid: afe7474602354964a8b228c879e72b62, type: 3}
   Nathan: {fileID: 8300000, guid: e5998a764e29af445aad838688684042, type: 3}

@@ -28,6 +28,8 @@ TagManager:
   - Elijah
   - Nathan
   - Sullivan
+  - gamePointText
+  - matchPointText
   layers:
   - Default
   - TransparentFX
