@@ -304,6 +304,7 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = matchPoint;
+            musicSource1.pitch = 1.4f;
             announcerSource.Play();
         }
     }
@@ -313,6 +314,7 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = gamePoint;
+            musicSource1.pitch = 1.2f;
             announcerSource.Play();
         }
     }
