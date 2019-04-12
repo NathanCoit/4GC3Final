@@ -256,10 +256,12 @@ public class GameManager : MonoBehaviour
 
         // Player 1 animation
         Camera.main.gameObject.transform.transform.position = Player1.transform.position + new Vector3(0, 1, -2);
+        //SoundMan.playCharacterName(MenuMan.player1Character);
         yield return AnimationController.StartAndWaitForAnimation("Player1Start");
 
         // Player 2 animation
         Camera.main.gameObject.transform.transform.position = Player2.transform.position + new Vector3(0, 1, -2);
+        //SoundMan.playCharacterName(MenuMan.player2Character);
         yield return AnimationController.StartAndWaitForAnimation("Player2Start");
 
         Camera.main.gameObject.transform.transform.position = uniInitialCamVector3;
