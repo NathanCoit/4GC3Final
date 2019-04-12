@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip ready;
     public AudioClip begin;
     public AudioClip select;
+    public AudioClip versus;
     public AudioClip Elijah;
     public AudioClip Harri;
     public AudioClip Nathan;
@@ -253,6 +254,19 @@ public class SoundManager : MonoBehaviour
                 break;
             }
             
+        }
+    }
+    
+    public void playVersus()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = versus;
+                a.Play();
+                break;
+            }
         }
     }
 
