@@ -33,55 +33,58 @@ public class CharacterSelectCursor : MonoBehaviour
     {
         if (Input.GetButtonDown("P" + PlayerNumber + "_Fire1"))
         {
-            if (currentlyHovered.tag == "roundsUp")
+            if(currentlyHovered != null)
             {
-                MenuMan.numRounds++;
-                SoundMan.playClick();
-                MenuMan.updateRoundsText();
-            }
-            else if (currentlyHovered.tag == "roundsDown")
-            {
-                MenuMan.numRounds--;
-                SoundMan.playClick();
-                MenuMan.updateRoundsText();
-            }
-            else if(currentlyHovered.tag == "beginButton")
-            {
-                MenuMan.StartGame();
-            }
-            else if (selected == "")
-            {
-                //Check to see if the other player already picked that character
-                bool validSelection = false;
-
-                if(PlayerNumber == 1)
+                if (currentlyHovered.tag == "roundsUp")
                 {
-                    if (MenuMan.player2Character != currentlyHovered.tag)
-                        validSelection = true;
+                    MenuMan.numRounds++;
+                    SoundMan.playClick();
+                    MenuMan.updateRoundsText();
                 }
-                else
+                else if (currentlyHovered.tag == "roundsDown")
                 {
-                    if (MenuMan.player1Character != currentlyHovered.tag)
-                        validSelection = true;
+                    MenuMan.numRounds--;
+                    SoundMan.playClick();
+                    MenuMan.updateRoundsText();
                 }
-
-                if (validSelection)
+                else if (currentlyHovered.tag == "beginButton")
                 {
-                    selected = currentlyHovered.tag;
-                    SoundMan.playCharSelect();
+                    MenuMan.StartGame();
+                }
+                else if (selected == "")
+                {
+                    //Check to see if the other player already picked that character
+                    bool validSelection = false;
 
                     if (PlayerNumber == 1)
-                        MenuMan.player1Character = selected;
+                    {
+                        if (MenuMan.player2Character != currentlyHovered.tag)
+                            validSelection = true;
+                    }
                     else
-                        MenuMan.player2Character = selected;
+                    {
+                        if (MenuMan.player1Character != currentlyHovered.tag)
+                            validSelection = true;
+                    }
 
-                    //Show who selected who
-                    if (PlayerNumber == 1)
-                        currentlyHovered.GetComponent<Image>().color = Color.red;
-                    else
-                        currentlyHovered.GetComponent<Image>().color = Color.blue;
+                    if (validSelection)
+                    {
+                        selected = currentlyHovered.tag;
+                        SoundMan.playCharSelect();
 
-                    Debug.Log("You selected " + selected + "!");
+                        if (PlayerNumber == 1)
+                            MenuMan.player1Character = selected;
+                        else
+                            MenuMan.player2Character = selected;
+
+                        //Show who selected who
+                        if (PlayerNumber == 1)
+                            currentlyHovered.GetComponent<Image>().color = Color.red;
+                        else
+                            currentlyHovered.GetComponent<Image>().color = Color.blue;
+
+                        Debug.Log("You selected " + selected + "!");
+                    }
                 }
             }
         }
@@ -89,15 +92,27 @@ public class CharacterSelectCursor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag != "p1Cursor" && collision.gameObject.tag != "p2Cursor" && (selected == "" || collision.gameObject.tag == "roundsDown" || collision.gameObject.tag == "roundsUp" || collision.gameObject.tag == "beginButton"))
+        {
+            SoundMan.playHover();
+            collision.gameObject.GetComponent<Image>().color = Color.gray;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if (collision.gameObject.tag != "p1Cursor" && collision.gameObject.tag != "p2Cursor")
         {
             currentlyHovered = collision.gameObject;
-            SoundMan.playHover();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         currentlyHovered = null;
+        if (selected == "" || collision.gameObject.tag == "roundsDown" || collision.gameObject.tag == "roundsUp" || collision.gameObject.tag == "beginButton")
+        {
+            collision.gameObject.GetComponent<Image>().color = Color.white;
+        }
     }
 }
