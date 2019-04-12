@@ -90,7 +90,13 @@ public class SoundManager : MonoBehaviour
         musicSource2.Stop();
     }
 
-    private void playTitleMusic()
+    public void fadeMusic()
+    {
+        StartCoroutine(FadeOut(1));
+        StartCoroutine(FadeOut(2));
+    }
+
+    public void playTitleMusic()
     {
         musicSource1.clip = titleMusic;
         musicSource1.Play();

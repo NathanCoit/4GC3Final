@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour
         SoundMan.playWins();
 
         yield return new WaitForSeconds(3);
+
         // TODO Enable winner screen
         // GameEndPanel.SetActive(true);
         QuitToTitle();
@@ -312,6 +313,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator QuitToTitleAsync()
     {
+        //Fade music as we fade out
+        yield return null;
+        SoundMan.fadeMusic();
+
         yield return AnimationController.StartAndWaitForAnimation("FadeOut");
         Destroy(MenuMan.gameObject);
         Destroy(SoundMan.gameObject);
