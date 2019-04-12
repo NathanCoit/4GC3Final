@@ -105,7 +105,8 @@ public class GameManager : MonoBehaviour
         MenuMan.gameEnd = true;
 
         string strWinnerName = string.Empty;
-
+        GameObject Winner;
+        GameObject Loser;
         SoundMan.cutMusic();
         SoundMan.playbwahbwahBWAH();
 
@@ -113,65 +114,33 @@ public class GameManager : MonoBehaviour
         {
             // Player 1 won
             strWinnerName = mstrPlayer1CharName;
-
-            Player2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            Player2.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x, Player2.transform.position.y + 2, Player2.transform.position.z));
-            Camera.main.GetComponent<CombatCam>().setTarget(Player2);
-
-            yield return new WaitForSeconds(0.3f);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x, Player2.transform.position.y + 2, Player2.transform.position.z - 20));
-
-            yield return new WaitForSeconds(0.3f);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x + 5, Player2.transform.position.y + 2, Player2.transform.position.z + 10));
-
-            yield return new WaitForSeconds(2);
-
-            Camera.main.GetComponent<CombatCam>().setTarget(Player1);
-
-
-
-            // TODO winning animation
-            /*
-            AnimationController.StartAnimation("Confetti");
-            */
-        }
-        else if (mintPlayer2Score > mintPlayer1Score)
-        {
-            // Player 2 won
-            strWinnerName = mstrPlayer2CharName;
-
-            Player1.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            Player1.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x, Player1.transform.position.y + 2, Player1.transform.position.z));
-            Camera.main.GetComponent<CombatCam>().setTarget(Player1);
-
-            yield return new WaitForSeconds(0.3f);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x, Player1.transform.position.y + 2, Player1.transform.position.z - 20));
-
-            yield return new WaitForSeconds(0.3f);
-
-            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x + 5, Player1.transform.position.y + 2, Player1.transform.position.z + 10));
-
-            yield return new WaitForSeconds(2);
-
-            Camera.main.GetComponent<CombatCam>().setTarget(Player2);
-
-            // TODO winning animation
-            /*
-            AnimationController.StartAnimation("Confetti");
-            */
+            Winner = Player1;
+            Loser = Player2;
         }
         else
         {
-            // tie
-            strWinnerName = "Tie"; // ?
+            // Player 2 won
+            strWinnerName = mstrPlayer2CharName;
+            Winner = Player2;
+            Loser = Player1;
         }
+        Loser.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Loser.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x, Loser.transform.position.y + 2, Loser.transform.position.z));
+        Camera.main.GetComponent<CombatCam>().setTarget(Loser);
+
+        yield return new WaitForSeconds(0.3f);
+
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x, Loser.transform.position.y + 2, Loser.transform.position.z - 20));
+
+        yield return new WaitForSeconds(0.3f);
+
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + 5, Loser.transform.position.y + 2, Loser.transform.position.z + 10));
+
+        yield return new WaitForSeconds(2);
+
+        Camera.main.GetComponent<CombatCam>().setTarget(Winner);
 
         SoundMan.playResultsMusic();
 
@@ -191,11 +160,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         SoundMan.playWins();
 
-
-        // TODO Set winner name text
-
+        yield return new WaitForSeconds(3);
         // TODO Enable winner screen
-
+        // GameEndPanel.SetActive(true);
+        QuitToTitle();
+        //ReturnToCharacterSelect();
+        //PlayAgain();
 
         yield return null;
     }
@@ -320,11 +290,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReturnToCharacterSelect()
     {
+        StartCoroutine(ReturnToCharacterSelectAsync());
+    }
+
+    private IEnumerator ReturnToCharacterSelectAsync()
+    {
+        yield return AnimationController.StartAndWaitForAnimation("FadeOut");
         Destroy(MenuMan.gameObject);
         Destroy(SoundMan.gameObject);
-        AnimationController.RunFunctionAfterAnimation(
-             () => SceneManager.LoadScene("CharacterSelect"),
-             "FadeOut");
+        SceneManager.LoadScene("CharacterSelect");
     }
 
     /// <summary>
@@ -332,12 +306,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void QuitToTitle()
     {
+        StartCoroutine(QuitToTitleAsync());
+        
+    }
+
+    private IEnumerator QuitToTitleAsync()
+    {
+        yield return AnimationController.StartAndWaitForAnimation("FadeOut");
         Destroy(MenuMan.gameObject);
         Destroy(SoundMan.gameObject);
-        AnimationController.RunFunctionAfterAnimation(
-            () => SceneManager.LoadScene("TitleScreen"),
-            "FadeOut");
-        
+        SceneManager.LoadScene("TitleScreen");
     }
 
     /// <summary>
@@ -345,9 +323,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayAgain()
     {
-        AnimationController.RunFunctionAfterAnimation(
-            () => SceneManager.LoadScene("CombatScene"),
-            "FadeOut");
+        StartCoroutine(PlayAgainAsync());
+    }
+    
+    private IEnumerator PlayAgainAsync()
+    {
+        yield return AnimationController.StartAndWaitForAnimation("FadeOut");
+        Destroy(SoundMan.gameObject);
+        SceneManager.LoadScene("CombatScene");
     }
 
     /// <summary>
