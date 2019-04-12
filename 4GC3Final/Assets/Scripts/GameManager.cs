@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
             mstrPlayer1CharName = "Harri";
             mstrPlayer2CharName = "Red";
         }
-        mstrPlayer1CharName = "Elijah";
         CreatePlayers(mstrPlayer1CharName, mstrPlayer2CharName);
         CreateScoreboardIcons(mstrPlayer1CharName, mstrPlayer2CharName);
     }
@@ -101,19 +100,34 @@ public class GameManager : MonoBehaviour
 
     private void DisplayWinnerScreen()
     {
+        string strWinnerName = string.Empty;
         if(mintPlayer1Score > mintPlayer2Score)
         {
             // Player 1 won
-            PlayAgain();
+            strWinnerName = mstrPlayer1CharName;
+            // TODO winning animation
+            /*
+            AnimationController.StartAnimation("Confetti");
+            */
         }
         else if (mintPlayer2Score > mintPlayer1Score)
         {
             // Player 2 won
+            strWinnerName = mstrPlayer2CharName;
+            // TODO winning animation
+            /*
+            AnimationController.StartAnimation("Confetti");
+            */
         }
         else
         {
             // tie
+            strWinnerName = "Tie"; // ?
         }
+
+        // TODO Set winner name text
+
+        // TODO Enable winner screen
     }
 
     public void DelayedGameReset()
@@ -215,7 +229,10 @@ public class GameManager : MonoBehaviour
         Player2Image.sprite = uniPlayer2Image;
     }
 
-    private void ReturnToCharacterSelect()
+    /// <summary>
+    /// TODO hook up to button
+    /// </summary>
+    public void ReturnToCharacterSelect()
     {
         Destroy(MenuMan.gameObject);
         Destroy(SoundMan.gameObject);
@@ -224,7 +241,10 @@ public class GameManager : MonoBehaviour
              "FadeOut");
     }
 
-    private void QuitToTitle()
+    /// <summary>
+    /// TODO hook up to button
+    /// </summary>
+    public void QuitToTitle()
     {
         Destroy(MenuMan.gameObject);
         Destroy(SoundMan.gameObject);
@@ -234,11 +254,11 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void PlayAgain()
+    /// <summary>
+    /// TODO hook up to button
+    /// </summary>
+    public void PlayAgain()
     {
-        // Hide option screen
-
-
         AnimationController.RunFunctionAfterAnimation(
             () => SceneManager.LoadScene("CombatScene"),
             "FadeOut");
