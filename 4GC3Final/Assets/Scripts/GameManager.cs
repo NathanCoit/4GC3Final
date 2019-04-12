@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour
 {
     public GameObject Player1;
     public GameObject Player2;
-    public GameObject Player1Scoreboard;
-    public GameObject Player2Scoreboard;
-    public GameObject ScoreboardRoundCount;
     public AnimationManager AnimationController;
 
     private int mintPlayer1Score = 0;
@@ -21,12 +18,8 @@ public class GameManager : MonoBehaviour
     private string mstrPlayer2CharName;
     private int mintTotalRounds = 0;
 
-    private TextMeshProUGUI muniPlayer1ScoreText;
-    private TextMeshProUGUI muniPlayer2ScoreText;
-    private TextMeshProUGUI muniRoundCountText;
-
-    private Image muniPlayer1Image;
-    private Image muniPlayer2Image;
+    public Image Player1Image;
+    public Image Player2Image;
 
     //Sound man has finally blessed your scripts. Praise him. Love him;
     private SoundManager SoundMan;
@@ -47,12 +40,7 @@ public class GameManager : MonoBehaviour
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 
         // Get scoreboard components
-        muniPlayer1ScoreText = Player1Scoreboard.GetComponentInChildren<TextMeshProUGUI>();
-        muniPlayer2ScoreText = Player2Scoreboard.GetComponentInChildren<TextMeshProUGUI>();
-        muniRoundCountText = ScoreboardRoundCount.GetComponentInChildren<TextMeshProUGUI>();
-
-        muniPlayer1Image = Player1Scoreboard.GetComponentInChildren<Image>();
-        muniPlayer2Image = Player2Scoreboard.GetComponentInChildren<Image>();
+        
 
         // Get chosen character names from magical place.
         mstrPlayer1CharName = MenuMan.player1Character;
@@ -96,8 +84,7 @@ public class GameManager : MonoBehaviour
             {
                 mintPlayer1Score++;
             }
-
-            UpdatePlayerScoreBoards();
+            
 
             if(mintPlayer1Score + mintPlayer2Score >= mintTotalRounds)
             {
@@ -128,29 +115,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerScoreBoards()
-    {
-        muniPlayer1ScoreText.text = mstrPlayer1CharName + "\n" + mintPlayer1Score;
-        muniPlayer2ScoreText.text = mstrPlayer2CharName + "\n" + mintPlayer2Score;
-    }
-
-    private void UpdateRoundCountScoreboard()
-    {
-        muniRoundCountText.text = "Round\n" + (mintPlayer1Score + mintPlayer2Score + 1);
-    }
-
     public void DelayedGameReset()
     {
+        
         StartCoroutine(DelayedResetCoroutine(3));
     }
 
     private IEnumerator DelayedResetCoroutine(float seconds)
     {
+        //Wait a frame cause unity
+        yield return null;
+
+        MenuMan.updateRoundsText();
+
+        //Isnt first round
+        if(!(mintPlayer1Score == 0 && mintPlayer2Score == 0))
+            MenuMan.scoreBoardAnimation();
+
         //STOP
         Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
         Player2.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
 
         yield return new WaitForSeconds(seconds);
+
         Player1.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player1.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
@@ -160,7 +147,6 @@ public class GameManager : MonoBehaviour
         Player2.transform.position = new Vector3(4, 0.5f, 0);
 
         Camera.main.GetComponent<CombatCam>().resetCamera();
-        UpdateRoundCountScoreboard();
         //Announcer and text anim
         SoundMan.playReady();
         MenuMan.ReadyAnimation();
@@ -217,19 +203,15 @@ public class GameManager : MonoBehaviour
 
     private void CreateScoreboardIcons(string pstrPlayer1Name, string pstrPlayer2Name)
     {
-        Sprite Player1Image = Resources.Load<Sprite>("PlayerIcons/" + pstrPlayer1Name);
-        Sprite Player2Image = Resources.Load<Sprite>("PlayerIcons/" + pstrPlayer2Name);
-        if (Player1Image == null || Player2Image == null)
+        Sprite uniPlayer1Image = Resources.Load<Sprite>("PlayerIcons/" + pstrPlayer1Name);
+        Sprite uniPlayer2Image = Resources.Load<Sprite>("PlayerIcons/" + pstrPlayer2Name);
+        if (uniPlayer1Image == null || uniPlayer2Image == null)
         {
             throw new System.Exception("Could not load player icons for (" + pstrPlayer1Name + ") or (" + pstrPlayer2Name + ")");
         }
 
-        muniPlayer1Image.sprite = Player1Image;
-        muniPlayer2Image.sprite = Player2Image;
-
-        muniPlayer1ScoreText.text = pstrPlayer1Name + "\n0";
-        muniPlayer2ScoreText.text = pstrPlayer2Name + "\n0";
-        muniRoundCountText.text = "Round\n1";
+        Player1Image.sprite = uniPlayer1Image;
+        Player2Image.sprite = uniPlayer2Image;
     }
 
     private void ReturnToCharacterSelect()
@@ -278,8 +260,17 @@ public class GameManager : MonoBehaviour
         // Player 2 animation
         Camera.main.gameObject.transform.transform.position = Player2.transform.position + new Vector3(0, 1, -2);
         yield return AnimationController.StartAndWaitForAnimation("Player2Start");
-        
+
         Camera.main.gameObject.transform.transform.position = uniInitialCamVector3;
         yield return DelayedResetCoroutine(0.1f);
+    }
+    public int getPlayer1Score()
+    {
+        return mintPlayer1Score;
+    }
+
+    public int getPlayer2Score()
+    {
+        return mintPlayer2Score;
     }
 }
