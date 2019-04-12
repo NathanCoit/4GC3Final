@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             mstrPlayer1CharName = "Harri";
             mstrPlayer2CharName = "Red";
         }
-        mstrPlayer1CharName = "Elijah";
+        mstrPlayer1CharName = "Nathan";
         CreatePlayers(mstrPlayer1CharName, mstrPlayer2CharName);
         CreateScoreboardIcons(mstrPlayer1CharName, mstrPlayer2CharName);
     }
