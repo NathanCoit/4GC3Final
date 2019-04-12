@@ -89,10 +89,15 @@ public class CharacterSelectCursor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "p1Cursor" || collision.gameObject.tag != "p2Cursor")
+        if (collision.gameObject.tag != "p1Cursor" && collision.gameObject.tag != "p2Cursor")
         {
             currentlyHovered = collision.gameObject;
             SoundMan.playHover();
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        currentlyHovered = null;
     }
 }
