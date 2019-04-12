@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
             }
             
 
-            if(mintPlayer1Score + mintPlayer2Score >= mintTotalRounds)
+            if(mintPlayer1Score == mintTotalRounds || mintPlayer2Score == mintTotalRounds)
             {
                 // Total rounds played, display winner, return to main menu.
                 DisplayWinnerScreen();
@@ -162,6 +162,22 @@ public class GameManager : MonoBehaviour
         Player2.transform.position = new Vector3(4, 0.5f, 0);
 
         Camera.main.GetComponent<CombatCam>().resetCamera();
+
+        //Game and match point
+        if (mintPlayer1Score == MenuMan.numRounds - 1 && mintPlayer2Score == MenuMan.numRounds - 1)
+        {
+            SoundMan.playMatchPoint();
+            MenuMan.matchPointAnimation();
+            yield return new WaitForSeconds(2);
+        }
+        else if (mintPlayer1Score == MenuMan.numRounds - 1 || mintPlayer2Score == MenuMan.numRounds - 1)
+        {
+            SoundMan.playGamePoint();
+            MenuMan.gamePointAnimation();
+            yield return new WaitForSeconds(1.75f);
+        }
+        
+
         //Announcer and text anim
         SoundMan.playReady();
         MenuMan.ReadyAnimation();
@@ -276,13 +292,20 @@ public class GameManager : MonoBehaviour
 
         // Player 1 animation
         Camera.main.gameObject.transform.transform.position = Player1.transform.position + new Vector3(0, 1, -2);
+        SoundMan.playCharacterName(MenuMan.player1Character);
         yield return AnimationController.StartAndWaitForAnimation("Player1Start");
+
+        //VERSUS....
+        Camera.main.GetComponent<CombatCam>().resetCamera();
+        SoundMan.playVersus();
+        yield return new WaitForSeconds(2);
 
         // Player 2 animation
         Camera.main.gameObject.transform.transform.position = Player2.transform.position + new Vector3(0, 1, -2);
+        SoundMan.playCharacterName(MenuMan.player2Character);
         yield return AnimationController.StartAndWaitForAnimation("Player2Start");
 
-        Camera.main.gameObject.transform.transform.position = uniInitialCamVector3;
+        Camera.main.GetComponent<CombatCam>().resetCamera();
         yield return DelayedResetCoroutine(0.1f);
     }
     public int getPlayer1Score()

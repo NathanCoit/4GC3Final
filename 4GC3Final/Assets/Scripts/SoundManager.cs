@@ -22,6 +22,15 @@ public class SoundManager : MonoBehaviour
     public AudioClip ready;
     public AudioClip begin;
     public AudioClip select;
+    public AudioClip versus;
+    public AudioClip gamePoint;
+    public AudioClip matchPoint;
+    public AudioClip Elijah;
+    public AudioClip Harri;
+    public AudioClip Nathan;
+    public AudioClip Sully;
+    public AudioClip Zack;
+    public AudioClip Red;
 
     //Effects
     public AudioClip bwah;
@@ -216,6 +225,53 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void playCharacterName(string name)
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                switch (name)
+                {
+                    case "Elijah":
+                        a.clip = Elijah;
+                        break;
+                    case "Harri":
+                        a.clip = Harri;
+                        break;
+                    case "Nathan":
+                        a.clip = Nathan;
+                        break;
+                    case "Sullivan":
+                        a.clip = Sully;
+                        break;
+                    case "Zack":
+                        a.clip = Zack;
+                        break;
+                    case "Red":
+                        a.clip = Red;
+                        break;
+                }
+                a.Play();
+                break;
+            }
+            
+        }
+    }
+    
+    public void playVersus()
+    {
+        foreach (AudioSource a in uiEffectSources)
+        {
+            if (!a.isPlaying)
+            {
+                a.clip = versus;
+                a.Play();
+                break;
+            }
+        }
+    }
+
     public void playBegin()
     {
         if (!announcerSource.isPlaying)
@@ -239,6 +295,24 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = select;
+            announcerSource.Play();
+        }
+    }
+
+    public void playMatchPoint()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = matchPoint;
+            announcerSource.Play();
+        }
+    }
+
+    public void playGamePoint()
+    {
+        if (!announcerSource.isPlaying)
+        {
+            announcerSource.clip = gamePoint;
             announcerSource.Play();
         }
     }

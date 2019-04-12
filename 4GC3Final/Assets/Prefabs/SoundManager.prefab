@@ -63,6 +63,15 @@ MonoBehaviour:
   ready: {fileID: 8300000, guid: c3fc808f48e8a3f43b34affccd460d08, type: 3}
   begin: {fileID: 8300000, guid: 8e41d1baae7d93f4bb2f4607e0197d17, type: 3}
   select: {fileID: 8300000, guid: 916ea42e63f10294da1df41bad606b39, type: 3}
+  versus: {fileID: 8300000, guid: 55201b6a89488a84aa94db82d625ff7e, type: 3}
+  gamePoint: {fileID: 8300000, guid: 28a171c8527b14d4fa5c6f0e7380abfd, type: 3}
+  matchPoint: {fileID: 8300000, guid: a5cd01a2ad6842741a72406a3e6fa9ef, type: 3}
+  Elijah: {fileID: 8300000, guid: dc8d13f995718f24480ccf518f0d332a, type: 3}
+  Harri: {fileID: 8300000, guid: afe7474602354964a8b228c879e72b62, type: 3}
+  Nathan: {fileID: 8300000, guid: e5998a764e29af445aad838688684042, type: 3}
+  Sully: {fileID: 8300000, guid: e5cf60333e752114fa378039b965b592, type: 3}
+  Zack: {fileID: 8300000, guid: bbd37bfe6d60d82479c24737df8e752c, type: 3}
+  Red: {fileID: 8300000, guid: d18dcb9fe9806db4a965e69ff38e6baa, type: 3}
   bwah: {fileID: 8300000, guid: 0d0e6dc0c2afd8240848f48e88b1e432, type: 3}
 --- !u!82 &8268877431569047234
 AudioSource:
