@@ -55,6 +55,7 @@ MonoBehaviour:
   characterSelectMusic: {fileID: 8300000, guid: 3cde4484a2e06a542820c82b334b01de,
     type: 3}
   combatMusic: {fileID: 8300000, guid: 3729ce92718fbbf48be1065fc9398b62, type: 3}
+  resultsMusic: {fileID: 8300000, guid: 5f15ace963599a048999650f1766ebb1, type: 3}
   titleScreenSelect: {fileID: 8300000, guid: 71f02f7c752a0bf46abc847fab59e4fa, type: 3}
   charSelect: {fileID: 8300000, guid: 821392a1b2cbcf640b312e7ced35ee83, type: 3}
   hover: {fileID: 8300000, guid: ae47f2bc1831dc4469441f22a43d8ac6, type: 3}
@@ -72,7 +73,9 @@ MonoBehaviour:
   Sully: {fileID: 8300000, guid: e5cf60333e752114fa378039b965b592, type: 3}
   Zack: {fileID: 8300000, guid: bbd37bfe6d60d82479c24737df8e752c, type: 3}
   Red: {fileID: 8300000, guid: d18dcb9fe9806db4a965e69ff38e6baa, type: 3}
+  Wins: {fileID: 8300000, guid: bd272855d562e2b4da3fce2ac3b72a8f, type: 3}
   bwah: {fileID: 8300000, guid: 0d0e6dc0c2afd8240848f48e88b1e432, type: 3}
+  bwahbwahBWAH: {fileID: 8300000, guid: a7dce4c41295d834899c19c8709165f0, type: 3}
 --- !u!82 &8268877431569047234
 AudioSource:
   m_ObjectHideFlags: 0

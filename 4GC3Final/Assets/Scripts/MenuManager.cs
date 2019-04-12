@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
 
     private bool shownRoundSelect;
     private bool combatStartup;
+    public bool gameEnd;
 
     public string player1Character;
     public string player2Character;
@@ -32,6 +33,7 @@ public class MenuManager : MonoBehaviour
         numRounds = 10;
         combatStartup = true;
         shownRoundSelect = false;
+        gameEnd = false;
     }
 
     // Update is called once per frame

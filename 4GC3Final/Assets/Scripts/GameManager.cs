@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             if(mintPlayer1Score == mintTotalRounds || mintPlayer2Score == mintTotalRounds)
             {
                 // Total rounds played, display winner, return to main menu.
-                DisplayWinnerScreen();
+                StartCoroutine(DisplayWinnerScreen());
             }
             else
             {
@@ -98,13 +98,42 @@ public class GameManager : MonoBehaviour
         }   
     }
 
-    private void DisplayWinnerScreen()
+    private IEnumerator DisplayWinnerScreen()
     {
+        yield return null;
+
+        MenuMan.gameEnd = true;
+
         string strWinnerName = string.Empty;
-        if(mintPlayer1Score > mintPlayer2Score)
+
+        SoundMan.cutMusic();
+        SoundMan.playbwahbwahBWAH();
+
+        if (mintPlayer1Score > mintPlayer2Score)
         {
             // Player 1 won
             strWinnerName = mstrPlayer1CharName;
+
+            Player2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            Player2.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x, Player2.transform.position.y + 2, Player2.transform.position.z));
+            Camera.main.GetComponent<CombatCam>().setTarget(Player2);
+
+            yield return new WaitForSeconds(0.3f);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x, Player2.transform.position.y + 2, Player2.transform.position.z - 20));
+
+            yield return new WaitForSeconds(0.3f);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player2.transform.position.x + 5, Player2.transform.position.y + 2, Player2.transform.position.z + 10));
+
+            yield return new WaitForSeconds(2);
+
+            Camera.main.GetComponent<CombatCam>().setTarget(Player1);
+
+
+
             // TODO winning animation
             /*
             AnimationController.StartAnimation("Confetti");
@@ -114,6 +143,25 @@ public class GameManager : MonoBehaviour
         {
             // Player 2 won
             strWinnerName = mstrPlayer2CharName;
+
+            Player1.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            Player1.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x, Player1.transform.position.y + 2, Player1.transform.position.z));
+            Camera.main.GetComponent<CombatCam>().setTarget(Player1);
+
+            yield return new WaitForSeconds(0.3f);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x, Player1.transform.position.y + 2, Player1.transform.position.z - 20));
+
+            yield return new WaitForSeconds(0.3f);
+
+            Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Player1.transform.position.x + 5, Player1.transform.position.y + 2, Player1.transform.position.z + 10));
+
+            yield return new WaitForSeconds(2);
+
+            Camera.main.GetComponent<CombatCam>().setTarget(Player2);
+
             // TODO winning animation
             /*
             AnimationController.StartAnimation("Confetti");
@@ -125,9 +173,31 @@ public class GameManager : MonoBehaviour
             strWinnerName = "Tie"; // ?
         }
 
+        SoundMan.playResultsMusic();
+
+        Player1.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Player2.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Player1.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+        Player2.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+
+        Player1.transform.position = new Vector3(-2, 0.5f, 0);
+        Player2.transform.position = new Vector3(2, 0.5f, 0);
+
+        Camera.main.GetComponent<CombatCam>().resetCamera();
+
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(0, 3, 0));
+
+        SoundMan.playCharacterName(strWinnerName);
+        yield return new WaitForSeconds(1);
+        SoundMan.playWins();
+
+
         // TODO Set winner name text
 
         // TODO Enable winner screen
+
+
+        yield return null;
     }
 
     public void DelayedGameReset()
