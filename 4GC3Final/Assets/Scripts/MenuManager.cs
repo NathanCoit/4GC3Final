@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
-        numRounds = 10;
+        numRounds = 2;
         shownRoundSelect = false;
     }
 
