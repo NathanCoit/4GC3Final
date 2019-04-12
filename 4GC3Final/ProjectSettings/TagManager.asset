@@ -24,6 +24,10 @@ TagManager:
   - player2WinCount
   - GameManager
   - scoreBoard
+  - Zack
+  - Elijah
+  - Nathan
+  - Sullivan
   layers:
   - Default
   - TransparentFX

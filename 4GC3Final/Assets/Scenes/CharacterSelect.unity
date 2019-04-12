@@ -345,9 +345,10 @@ GameObject:
   - component: {fileID: 421184715}
   - component: {fileID: 421184717}
   - component: {fileID: 421184716}
+  - component: {fileID: 421184718}
   m_Layer: 5
   m_Name: elijah
-  m_TagString: Untagged
+  m_TagString: Elijah
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,6 +409,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421184714}
   m_CullTransparentMesh: 0
+--- !u!60 &421184718
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421184714}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -3.257431, y: 48.66594}
+      - {x: -47.000374, y: 47.125366}
+      - {x: -0.5877852, y: -0.80901706}
+      - {x: 43.464165, y: -47.67066}
+      - {x: 44.25482, y: 48.184387}
 --- !u!1 &546731687
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,9 +766,10 @@ GameObject:
   - component: {fileID: 897890805}
   - component: {fileID: 897890807}
   - component: {fileID: 897890806}
+  - component: {fileID: 897890808}
   m_Layer: 5
   m_Name: nathan
-  m_TagString: Untagged
+  m_TagString: Nathan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -798,6 +830,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897890804}
   m_CullTransparentMesh: 0
+--- !u!60 &897890808
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897890804}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 21.452312, y: 12.51776}
+      - {x: -45.041748, y: 47.793488}
+      - {x: -42.486126, y: -46.36273}
+      - {x: 21.134869, y: -11.441566}
+      - {x: 44.010254, y: 1.4643571}
 --- !u!1 &1016183490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,11 +1065,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -43.408936, y: 8.171322}
-      - {x: -43.801743, y: 45.944473}
-      - {x: 48.044113, y: -47.263626}
-      - {x: 3.4782257, y: -47.20231}
-      - {x: -42.629913, y: -42.738808}
+    - - {x: 43.520416, y: 47.335625}
+      - {x: -49.025974, y: -48.45379}
+      - {x: -3.1772232, y: -49.203865}
+      - {x: 46.922775, y: -47.640717}
+      - {x: 43.73349, y: -3.7351952}
 --- !u!1 &1156020458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,9 +1405,10 @@ GameObject:
   - component: {fileID: 1767772327}
   - component: {fileID: 1767772329}
   - component: {fileID: 1767772328}
+  - component: {fileID: 1767772330}
   m_Layer: 5
   m_Name: zack
-  m_TagString: Untagged
+  m_TagString: Zack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1406,6 +1469,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767772326}
   m_CullTransparentMesh: 0
+--- !u!60 &1767772330
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767772326}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 48.32753, y: 47.97502}
+      - {x: -44.48326, y: 47.806473}
+      - {x: -43.402184, y: -47.130592}
+      - {x: 0.58778536, y: -0.80901694}
+      - {x: 0.9510565, y: 0.30901712}
 --- !u!1 &1777572847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,12 +2000,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -38.554565, y: 42.0331}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: 49.11944, y: -48.317245}
-      - {x: 1.7571945, y: -47.579468}
-      - {x: -47.856903, y: -46.199318}
-      - {x: -43.754074, y: 48.054497}
+    - - {x: 42.87783, y: 48.636177}
+      - {x: -46.198547, y: 1.282624}
+      - {x: -13.356283, y: -15.684492}
+      - {x: 44.41386, y: -48.567257}
+      - {x: 41.205017, y: -1.9011614}
 --- !u!1 &2060909904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,9 +2016,10 @@ GameObject:
   - component: {fileID: 2060909905}
   - component: {fileID: 2060909907}
   - component: {fileID: 2060909906}
+  - component: {fileID: 2060909908}
   m_Layer: 5
   m_Name: sully
-  m_TagString: Untagged
+  m_TagString: Sullivan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1987,6 +2080,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060909904}
   m_CullTransparentMesh: 0
+--- !u!60 &2060909908
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060909904}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -43.774284, y: 47.566086}
+      - {x: -43.950485, y: -48.040627}
+      - {x: 47.321045, y: -47.302795}
+      - {x: 0.9510565, y: 0.30901712}
 --- !u!1 &2070296259
 GameObject:
   m_ObjectHideFlags: 0
