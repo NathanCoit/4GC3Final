@@ -39,9 +39,9 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey && SceneManager.GetActiveScene().name == "TitleScreen")
+        if (Input.anyKeyDown && SceneManager.GetActiveScene().name == "TitleScreen")
             StartCharacterSelect();
-        else if (Input.anyKey && SceneManager.GetActiveScene().name == "CharacterSelect")
+        else if (Input.anyKeyDown && SceneManager.GetActiveScene().name == "CharacterSelect")
         {
             if (player1Character != "" && player2Character != "" && !shownRoundSelect)
             {

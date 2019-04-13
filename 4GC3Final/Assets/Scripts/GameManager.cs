@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
         string strWinnerName = string.Empty;
         GameObject Winner;
         GameObject Loser;
+        Vector3 prevVelocity;
+        Vector3 prevAngularVelocity;
         SoundMan.cutMusic();
         SoundMan.playbwahbwahBWAH();
 
@@ -124,6 +126,9 @@ public class GameManager : MonoBehaviour
             Winner = Player2;
             Loser = Player1;
         }
+        prevVelocity = Loser.GetComponent<Rigidbody>().velocity;
+        prevAngularVelocity = Loser.GetComponent<Rigidbody>().angularVelocity;
+
         Loser.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Loser.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
 
@@ -137,6 +142,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + 5, Loser.transform.position.y + 2, Loser.transform.position.z + 10));
+
+        Loser.GetComponent<Rigidbody>().velocity = new Vector3(prevVelocity.x * 3, (prevVelocity.y + 1) * 2, prevVelocity.z * 3);
+        Loser.GetComponent<Rigidbody>().angularVelocity = prevAngularVelocity * 2;
 
         yield return new WaitForSeconds(2);
 
