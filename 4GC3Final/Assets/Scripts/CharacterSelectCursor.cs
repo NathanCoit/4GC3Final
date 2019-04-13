@@ -43,7 +43,8 @@ public class CharacterSelectCursor : MonoBehaviour
                 }
                 else if (currentlyHovered.tag == "roundsDown")
                 {
-                    MenuMan.numRounds--;
+                    // No negatives
+                    MenuMan.numRounds = MenuMan.numRounds > 1 ? MenuMan.numRounds - 1 : MenuMan.numRounds;
                     SoundMan.playClick();
                     MenuMan.updateRoundsText();
                 }

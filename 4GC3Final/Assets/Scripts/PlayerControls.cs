@@ -28,6 +28,7 @@ public class PlayerControls : MonoBehaviour
     public float JumpCooldownTime;
 
     private int ActionTimeout = 0; //Timeout time in 1/50's of a second
+    private bool mblnGravityEnabled = true;
     public ActionType CurrentAction = ActionType.None;
 
     private SoundManager SoundMan;
@@ -91,8 +92,11 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        // Apply gravity affect. Allows for variable gravity
-        rigidbody.AddForce(Physics.gravity * rigidbody.mass * GravityScale);
+        if(mblnGravityEnabled)
+        {
+            // Apply gravity affect. Allows for variable gravity
+            rigidbody.AddForce(Physics.gravity * rigidbody.mass * GravityScale);
+        }
 
         //Rolling sound
         if (Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z) > 0.1f)
@@ -196,5 +200,15 @@ public class PlayerControls : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    public void DisableGravity()
+    {
+        mblnGravityEnabled = false;
+    }
+
+    public void EnableGravity()
+    {
+        mblnGravityEnabled = true;
     }
 }

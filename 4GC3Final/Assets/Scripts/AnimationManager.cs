@@ -38,11 +38,11 @@ public class AnimationManager : MonoBehaviour
     /// Assumes animation is started with "Start" trigger
     /// </summary>
     /// <param name="pstrAnimationName"></param>
-    public void StartAnimation(string pstrAnimationName)
+    public void StartAnimation(string pstrAnimationName, int pintAnimationIndex = 0)
     {
         if (mdictAnimations[pstrAnimationName] != null)
         {
-            mdictAnimations[pstrAnimationName].SetTrigger("Start");
+            mdictAnimations[pstrAnimationName].SetTrigger("Start" + pintAnimationIndex);
         }
     }
 
@@ -51,11 +51,11 @@ public class AnimationManager : MonoBehaviour
     /// </summary>
     /// <param name="pstrAnimationName"></param>
     /// <returns></returns>
-    public IEnumerator StartAndWaitForAnimation(string pstrAnimationName)
+    public IEnumerator StartAndWaitForAnimation(string pstrAnimationName, int pintAnimationIndex = 0)
     {
         if (mdictAnimations[pstrAnimationName] != null)
         {
-            mdictAnimations[pstrAnimationName].SetTrigger("Start");
+            mdictAnimations[pstrAnimationName].SetTrigger("Start" + pintAnimationIndex);
         }
 
 
@@ -83,11 +83,11 @@ public class AnimationManager : MonoBehaviour
     /// <param name="puniCallbackFunction"></param>
     /// <param name="pstrAnimationName"></param>
     /// <returns></returns>
-    private IEnumerator CoroutineAnimationFunction(UnityAction puniCallbackFunction, string pstrAnimationName)
+    private IEnumerator CoroutineAnimationFunction(UnityAction puniCallbackFunction, string pstrAnimationName, int pintAnimationIndex = 0)
     {
         if (mdictAnimations[pstrAnimationName] != null)
         {
-            mdictAnimations[pstrAnimationName].SetTrigger("Start");
+            mdictAnimations[pstrAnimationName].SetTrigger("Start" + pintAnimationIndex);
         }
 
         AnimationEvents animEvents = mdictAnimations[pstrAnimationName].gameObject.GetComponent<AnimationEvents>();

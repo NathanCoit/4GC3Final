@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public Image Player1Image;
     public Image Player2Image;
+    public EndgameButtonSelect EndGameOptionsController;
 
     //Sound man has finally blessed your scripts. Praise him. Love him;
     private SoundManager SoundMan;
@@ -39,9 +40,7 @@ public class GameManager : MonoBehaviour
     {
         MenuMan = GameObject.FindGameObjectWithTag("MenuManager").GetComponent<MenuManager>();
         SoundMan = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
-
         // Get scoreboard components
-        
 
         // Get chosen character names from magical place.
         mstrPlayer1CharName = MenuMan.player1Character;
@@ -147,7 +146,7 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + Random.Range(-10, 10), Loser.transform.position.y + Random.Range(0, 10), Loser.transform.position.z + Random.Range(-10, 10)));
 
         //Explode into distance
-        Loser.GetComponent<Rigidbody>().velocity = new Vector3(prevVelocity.x * 3, (prevVelocity.y + 1) * 2, prevVelocity.z * 3);
+        Loser.GetComponent<Rigidbody>().velocity = new Vector3(prevVelocity.x * 3, (prevVelocity.y + 1) * 50, prevVelocity.z * 3);
         Loser.GetComponent<Rigidbody>().angularVelocity = prevAngularVelocity * 2;
 
         yield return new WaitForSeconds(2);
@@ -175,8 +174,23 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         // TODO Enable winner screen
-        // GameEndPanel.SetActive(true);
-        QuitToTitle();
+        Player1.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
+        Player2.GetComponent<PlayerControls>().CurrentAction = PlayerControls.ActionType.Dead;
+
+        // Yeet the loser
+        Loser.transform.position = new Vector3(50, 50, 50);
+
+        Camera.main.transform.position = new Vector3(100, 100, 90);
+        Camera.main.transform.LookAt(new Vector3(100, 100, 100));
+        Winner.transform.position = new Vector3(100, 100, 100);
+        Winner.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Winner.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Winner.GetComponent<PlayerControls>().DisableGravity();
+        AnimationController.StartAnimation(strWinnerName, 1);
+
+        EndGameOptionsController.gameObject.SetActive(true);
+        EndGameOptionsController.EnableOptionsPanel(Player1Image.sprite, Player2Image.sprite);
+        //QuitToTitle();
         //ReturnToCharacterSelect();
         //PlayAgain();
 
@@ -265,8 +279,8 @@ public class GameManager : MonoBehaviour
         Player1 = (GameObject)Instantiate(Player1Prefab);
         Player2 = (GameObject)Instantiate(Player2Prefab);
 
-        AnimationController.AddAnimation("Player1Start", Player1.GetComponentInChildren<Animator>());
-        AnimationController.AddAnimation("Player2Start", Player2.GetComponentInChildren<Animator>());
+        AnimationController.AddAnimation(Player1PrefabName, Player1.GetComponentInChildren<Animator>());
+        AnimationController.AddAnimation(Player2PrefabName, Player2.GetComponentInChildren<Animator>());
 
         PlayerControls P1Controls = Player1.GetComponent<PlayerControls>();
         PlayerControls P2Controls = Player2.GetComponent<PlayerControls>();
@@ -347,6 +361,8 @@ public class GameManager : MonoBehaviour
     {
         yield return AnimationController.StartAndWaitForAnimation("FadeOut");
         Destroy(SoundMan.gameObject);
+        MenuMan.gameEnd = false;
+        MenuMan.RefreshGameMan();
         SceneManager.LoadScene("CombatScene");
     }
 
@@ -363,7 +379,7 @@ public class GameManager : MonoBehaviour
         // Player 1 animation
         Camera.main.gameObject.transform.transform.position = Player1.transform.position + new Vector3(0, 1, -2);
         SoundMan.playCharacterName(MenuMan.player1Character);
-        yield return AnimationController.StartAndWaitForAnimation("Player1Start");
+        yield return AnimationController.StartAndWaitForAnimation(mstrPlayer1CharName);
 
         //VERSUS....
         Camera.main.GetComponent<CombatCam>().resetCamera();
@@ -373,7 +389,7 @@ public class GameManager : MonoBehaviour
         // Player 2 animation
         Camera.main.gameObject.transform.transform.position = Player2.transform.position + new Vector3(0, 1, -2);
         SoundMan.playCharacterName(MenuMan.player2Character);
-        yield return AnimationController.StartAndWaitForAnimation("Player2Start");
+        yield return AnimationController.StartAndWaitForAnimation(mstrPlayer2CharName);
 
         Camera.main.GetComponent<CombatCam>().resetCamera();
         yield return DelayedResetCoroutine(0.1f);
