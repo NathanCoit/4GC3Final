@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -132,16 +133,16 @@ public class GameManager : MonoBehaviour
         Loser.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Loser.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
 
-        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x, Loser.transform.position.y + 2, Loser.transform.position.z));
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + Random.Range(-10, 10), Loser.transform.position.y + Random.Range(0, 10), Loser.transform.position.z + Random.Range(-10, 10)));
         Camera.main.GetComponent<CombatCam>().setTarget(Loser);
 
         yield return new WaitForSeconds(0.3f);
 
-        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x, Loser.transform.position.y + 2, Loser.transform.position.z - 20));
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + Random.Range(-10, 10), Loser.transform.position.y + Random.Range(0, 10), Loser.transform.position.z + Random.Range(-10, 10)));
 
         yield return new WaitForSeconds(0.3f);
 
-        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + 5, Loser.transform.position.y + 2, Loser.transform.position.z + 10));
+        Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + Random.Range(-10, 10), Loser.transform.position.y + Random.Range(0, 10), Loser.transform.position.z + Random.Range(-10, 10)));
 
         Loser.GetComponent<Rigidbody>().velocity = new Vector3(prevVelocity.x * 3, (prevVelocity.y + 1) * 2, prevVelocity.z * 3);
         Loser.GetComponent<Rigidbody>().angularVelocity = prevAngularVelocity * 2;
