@@ -127,6 +127,8 @@ public class GameManager : MonoBehaviour
             Winner = Player2;
             Loser = Player1;
         }
+
+        //Save these for l8r
         prevVelocity = Loser.GetComponent<Rigidbody>().velocity;
         prevAngularVelocity = Loser.GetComponent<Rigidbody>().angularVelocity;
 
@@ -144,6 +146,7 @@ public class GameManager : MonoBehaviour
 
         Camera.main.GetComponent<CombatCam>().lookAt(new Vector3(Loser.transform.position.x + Random.Range(-10, 10), Loser.transform.position.y + Random.Range(0, 10), Loser.transform.position.z + Random.Range(-10, 10)));
 
+        //Explode into distance
         Loser.GetComponent<Rigidbody>().velocity = new Vector3(prevVelocity.x * 3, (prevVelocity.y + 1) * 2, prevVelocity.z * 3);
         Loser.GetComponent<Rigidbody>().angularVelocity = prevAngularVelocity * 2;
 

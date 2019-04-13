@@ -46,6 +46,11 @@ public class SoundManager : MonoBehaviour
     private AudioSource announcerSource;
     private AudioSource effectsSource;
 
+    private AudioSource player1Rolling;
+    private AudioSource player2Rolling;
+
+    private AudioSource collisionSource;
+
     private float fadeRate = 3.5f;
 
     void Awake()
@@ -64,6 +69,11 @@ public class SoundManager : MonoBehaviour
         uiEffectSources.Add(GetComponents<AudioSource>()[4]);
         announcerSource = GetComponents<AudioSource>()[5];
         effectsSource = GetComponents<AudioSource>()[6];
+
+        player1Rolling = GetComponents<AudioSource>()[7];
+        player2Rolling = GetComponents<AudioSource>()[8];
+
+        collisionSource = GetComponents<AudioSource>()[9];
 
     }
 
@@ -94,6 +104,43 @@ public class SoundManager : MonoBehaviour
     {
         StartCoroutine(FadeOut(1));
         StartCoroutine(FadeOut(2));
+    }
+
+    public void playCollision(float volume)
+    {
+        if (!collisionSource.isPlaying)
+        {
+            collisionSource.volume = volume;
+            collisionSource.Play();
+        }
+    }
+
+    public void playRolling(string playerID, float volume)
+    {
+        if(playerID == "P1")
+        {
+            player1Rolling.volume = volume;
+            if(!player1Rolling.isPlaying)
+                player1Rolling.Play();
+        }
+        else
+        {
+            player2Rolling.volume = volume;
+            if (!player2Rolling.isPlaying)
+                player2Rolling.Play();
+        }
+    }
+
+    public void stopRolling(string playerID)
+    {
+        if (playerID == "P1")
+        {
+            player1Rolling.Stop();
+        }
+        else
+        {
+            player2Rolling.Stop();
+        }
     }
 
     public void playTitleMusic()

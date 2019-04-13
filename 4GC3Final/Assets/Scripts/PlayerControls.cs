@@ -93,6 +93,12 @@ public class PlayerControls : MonoBehaviour
 
         // Apply gravity affect. Allows for variable gravity
         rigidbody.AddForce(Physics.gravity * rigidbody.mass * GravityScale);
+
+        //Rolling sound
+        if (Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z) > 0.1f)
+            SoundMan.playRolling(PlayerNumber, (Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z)) / 5.95f);
+        else
+            SoundMan.stopRolling(PlayerNumber);
     }
 
     void OnCollisionEnter(Collision col)
@@ -104,6 +110,10 @@ public class PlayerControls : MonoBehaviour
         }
         else if (col.gameObject.tag.Equals("Player"))
         {
+            //Play sound
+            SoundMan.playCollision((Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z)) / 20.0f);
+            Debug.Log("Boop");
+
             // colliding while boosting
             if (CurrentAction == ActionType.Boosting)
             {
