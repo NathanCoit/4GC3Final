@@ -110,6 +110,7 @@ public class SoundManager : MonoBehaviour
     {
         if (!collisionSource.isPlaying)
         {
+            collisionSource.pitch = 0.8f + (volume / 2);
             collisionSource.volume = volume;
             collisionSource.Play();
         }
