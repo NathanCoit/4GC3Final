@@ -110,6 +110,7 @@ public class SoundManager : MonoBehaviour
     {
         if (!collisionSource.isPlaying)
         {
+            collisionSource.pitch = 0.8f + (volume / 2);
             collisionSource.volume = volume;
             collisionSource.Play();
         }
@@ -215,7 +216,7 @@ public class SoundManager : MonoBehaviour
 
         while (audioSource.volume > 0.1f)
         {
-            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 0.0f, fadeRate * Time.deltaTime);
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 0.0f, fadeRate * Time.deltaTime);
             yield return null;
         }
 
@@ -234,13 +235,24 @@ public class SoundManager : MonoBehaviour
 
         while (audioSource.volume < 0.9f)
         {
-            audioSource.volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 1.0f, fadeRate * Time.deltaTime);
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 1.0f, fadeRate * Time.deltaTime);
             yield return null;
         }
 
         // Close enough, turn it on!
         audioSource.volume = 1.0f;
     }
+
+    private IEnumerator pitchUp(float pitch)
+    {
+        while(musicSource1.pitch < pitch - 0.01f)
+        {
+            musicSource1.pitch = Mathf.Lerp(musicSource1.pitch, pitch, fadeRate * Time.deltaTime);
+            musicSource2.pitch = Mathf.Lerp(musicSource2.pitch, pitch, fadeRate * Time.deltaTime);
+            yield return null;
+        }
+    }
+
 
     public void playTitleScreenSelect()
     {
@@ -386,7 +398,7 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = matchPoint;
-            musicSource1.pitch = 1.4f;
+            StartCoroutine(pitchUp(1.4f));
             announcerSource.Play();
         }
     }
@@ -396,7 +408,7 @@ public class SoundManager : MonoBehaviour
         if (!announcerSource.isPlaying)
         {
             announcerSource.clip = gamePoint;
-            musicSource1.pitch = 1.2f;
+            StartCoroutine(pitchUp(1.2f));
             announcerSource.Play();
         }
     }
