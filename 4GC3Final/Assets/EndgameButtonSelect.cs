@@ -155,14 +155,14 @@ public class EndgameButtonSelect : MonoBehaviour
     {
         foreach( Button uniBtn in P1Options)
         {
-            uniBtn.image.color = new Color(1, 1, 1, 0);
+            uniBtn.image.color = new Color(1, 1, 1, 1);
         }
     }
     private void DeselectP2Buttons()
     {
         foreach (Button uniBtn in P2Options)
         {
-            uniBtn.image.color = new Color(1, 1, 1, 0);
+            uniBtn.image.color = new Color(1, 1, 1, 1);
         }
     }
 
